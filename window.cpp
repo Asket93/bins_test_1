@@ -2,8 +2,7 @@
 #include "window.h"
 #include "ui_window.h"
 
-#include <QThread>
-#include <QtConcurrentRun>
+
 #include <QPixmap>
 #include <QPainter>
 #include <QByteArray>
