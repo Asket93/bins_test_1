@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,9 +14,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        window.cpp
+        window.cpp \
+    specialthread.cpp
 
-HEADERS  += window.h
+HEADERS  += window.h \
+    specialthread.h
 
 FORMS    += window.ui
 

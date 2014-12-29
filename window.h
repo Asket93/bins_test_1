@@ -32,5 +32,4 @@ private slots:
 private:
     Ui::Window *ui;
 };
-
 #endif // WINDOW_H

@@ -1,5 +1,9 @@
+#include "specialthread.h"
 #include "window.h"
 #include "ui_window.h"
+
+#include <QThread>
+#include <QtConcurrentRun>
 #include <QPixmap>
 #include <QPainter>
 #include <QByteArray>
@@ -17,8 +21,6 @@ Window::Window(QWidget *parent) :
     ui->label->setPixmap(QPixmap(":/new/prefix1/pic3"));
     ui->label_r->setPixmap(QPixmap(":/new/prefix1/pic5"));
     ui->label_y->setPixmap(QPixmap(":/new/prefix1/pic4"));
-
-
 }
 
 Window::~Window()
@@ -54,10 +56,8 @@ void Window::rotate_fly(int angle, QPixmap img, int tipe) // передаем з
         ui->label_y->setPixmap(rotate);
         break;
     }
-
-
-
 }
+//если нужно читать из файла
 void Window::read_pitch()
 {
     QPixmap fly(":/new/prefix1/pic3");
@@ -75,7 +75,6 @@ void Window::read_pitch()
 
     ui->val_pitch_lable->setNum(d_p);
 }
-
 void Window::read_yaw()
 {
     QPixmap fly(":/new/prefix1/pic4");
@@ -110,9 +109,24 @@ void Window::read_roll()
 
     ui->val_roll_lable->setNum(d_p);
 }
+
 void Window::on_pushButton_2_clicked()
 {
     QApplication::exit();
+}
+// Тест. Создание потока
+TestClass::TestClass(int i)
+{
+    num=i;
+}
+
+void TestClass::run()
+{
+    for (int i=0; i<5000; i++)
+    {
+        qDebug()<<"from"<<num;
+    }
+    emit finished();
 }
 
 void Window::on_pushButton_clicked()
