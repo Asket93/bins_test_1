@@ -4,4 +4,10 @@
         <file alias="pic4">pic4.png</file>
         <file alias="pic5">pic5.png</file>
     </qresource>
+    <qresource prefix="/new/prefix2">
+        <file alias="slider_bg">images/slider_bg.png</file>
+        <file alias="slider_handle">images/slider_handle.png</file>
+        <file alias="slider_off">images/slider_off.png</file>
+        <file alias="slider_on">images/slider_on.png</file>
+    </qresource>
 </RCC>

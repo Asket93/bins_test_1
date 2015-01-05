@@ -3,15 +3,17 @@
 #include <QtConcurrentRun>
 #include "window.h"
 #include "specialthread.h"
-
+#include <QPushButton>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Window w;
     // w.setWindowFlags(Qt::CustomizeWindowHint);
     w.show();
+
+
     //запускаем поток
-    SpecialThread one;
+    /*SpecialThread one;
     SpecialThread two;
     SpecialThread three;
 
@@ -24,7 +26,6 @@ int main(int argc, char *argv[])
 
     QObject::connect(&two,SIGNAL(started()),&text2,SLOT(run()));
     QObject::connect(&text2,SIGNAL(finished()),&two,SLOT(terminate()));
-
     text1.moveToThread(&one);
     text2.moveToThread(&two);
 
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     //one.terminate();
     one.start();
     two.start();
-    //three.start();
+    //three.start();*/
+
     return a.exec();
 }

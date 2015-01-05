@@ -2,7 +2,6 @@
 #include "window.h"
 #include "ui_window.h"
 
-
 #include <QPixmap>
 #include <QPainter>
 #include <QByteArray>
@@ -20,6 +19,10 @@ Window::Window(QWidget *parent) :
     ui->label->setPixmap(QPixmap(":/new/prefix1/pic3"));
     ui->label_r->setPixmap(QPixmap(":/new/prefix1/pic5"));
     ui->label_y->setPixmap(QPixmap(":/new/prefix1/pic4"));
+
+    timer = new QTimer(this);
+    QObject::connect(timer, SIGNAL(timeout()),this, SLOT(timer_overflow()));
+    timer->stop();
 }
 
 Window::~Window()
@@ -69,8 +72,8 @@ void Window::read_pitch()
     pitch.close();
     double d_p=data_s.toDouble();
         //qDebug() << data_s; // Выводим данные в консоль
-    p=abs(d_p);
-    rotate_fly(p, fly, 1);
+
+    rotate_fly(d_p, fly, 1);
 
     ui->val_pitch_lable->setNum(d_p);
 }
@@ -86,8 +89,7 @@ void Window::read_yaw()
     pitch.close();
     double d_p=data_s.toDouble();
         //qDebug() << data_s; // Выводим данные в консоль
-    p=abs(d_p);
-    rotate_fly(p, fly, 3);
+    rotate_fly(d_p, fly, 3);
 
     ui->val_yaw_lable->setNum(d_p);
 }
@@ -103,8 +105,7 @@ void Window::read_roll()
     pitch.close();
     double d_p=data_s.toDouble();
         //qDebug() << data_s; // Выводим данные в консоль
-    p=abs(d_p);
-    rotate_fly(p, fly, 2);
+    rotate_fly(d_p, fly, 2);
 
     ui->val_roll_lable->setNum(d_p);
 }
@@ -128,11 +129,19 @@ void TestClass::run()
     emit finished();
 }
 
-void Window::on_pushButton_clicked()
+void Window::timer_overflow()
 {
     read_pitch();
     read_roll();
     read_yaw();
+}
+
+void Window::on_pushButton_clicked()
+{
+  /* timer = new QTimer;
+   QObject::connect(timer, SIGNAL(timeout()),this, SLOT(timer_overflow()));
+   timer->start(100);*/
+
 }
 
 void Window::on_dial_valueChanged(int value)
@@ -141,4 +150,16 @@ void Window::on_dial_valueChanged(int value)
     rotate_fly(value, fly, 1);
 
     ui->val_pitch_lable->setNum(value);
+}
+
+void Window::on_horizontalSlider_valueChanged(int value)
+{
+    if (value==0)
+    {
+        timer->stop();
+    }
+    if (value==1)
+    {
+        timer->start(200);
+    }
 }
